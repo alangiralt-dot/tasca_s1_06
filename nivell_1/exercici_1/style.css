@@ -67,3 +67,23 @@ input, select, #submit-btn {
     width: 90%;
   }
 }
+table {
+    border-collapse: collapse;
+}
+td, th {
+    border: 1px solid black;
+    padding: 10px;
+}
+td:first-child {
+    font-weight: 600;
+}
+th {
+    text-align: left;
+}
+#table-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 20px;
+}
