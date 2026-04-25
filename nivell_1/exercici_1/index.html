@@ -9,19 +9,23 @@
 </head>
 <body>
 <div id="div2">
-<div id="div1">
+<div id="login-container">
 <div>
   <img src="https://aadcdn.msauth.net/shared/1.0/content/images/microsoft_logo_564db913a7fa0ca42727161c6d031bef.svg" alt="Microsoft">
 </div>
 <div id="header1">Log in</div>
 <form action="index.php" method="POST" name="form1">
+  <label class="ghost" for="user_name">Username</label>
   <input type="text" name="user_name" placeholder="Username">
+  <label class="ghost" for="password">Password</label>
   <input type="password" name="password" placeholder="Password">
+  <label class="ghost" for="language">Language</label>
   <select name="language">
     <option value="English" selected="selected">English</option>
     <option value="Chinese">Chinese</option>
     <option value="Spanish">Spanish</option>
   </select>
+  <label class="ghost" for="mode">Mode</label>
   <select name="mode">
     <option value="light" selected="selected">Light mode</option>
     <option value="dark">Dark mode</option>

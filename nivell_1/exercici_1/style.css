@@ -6,7 +6,7 @@ body {
   font-size: 24px;
   font-weight: 600;
 }
-#div1 {
+#login-container {
   align-items: stretch;
   /*border: 1px solid black;*/
   background-color: white;
@@ -56,4 +56,11 @@ input, select, #input1 {
   justify-content: flex-end;
   align-items: stretch;
 }
-  
+.ghost {
+  display: none;
+}
+@media (max-width: 25rem) {
+  #login-container {
+    width: 90%;
+  }
+}
