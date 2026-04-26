@@ -1,43 +1,92 @@
 <?php
 declare(strict_types=1);
-abstract class Shape {
-    // Constructor
+interface PlaneMesuration {
+    public function calculateArea(): float;
+}
+interface Transformation {
+    public function rotate(): void;
+}
+class Shape {
+    
+}
+class Rectangle extends Shape implements PlaneMesuration, Transformation {
     public function __construct(
         private float $base,
-        private float $height) {
-        if ($this->base <= 0) throw new InvalidArgumentException('$base is less or equal to 0');
-        if ($this->height <= 0) throw new InvalidArgumentException('$height is less or equal to 0');
+        private float $height
+    ){
+        Check::greaterThanZero($this->base);
+        Check::greaterThanZero($this->height);
     }
-    // Getters
-    public function getBase(): float {
-        return $this->base;
+    public function calculateArea(): float {
+        return $this->base * $this->height;
     }
-    public function getHeight(): float {
-        return $this->height;
+    public function rotate(): void {
+
     }
-    // Setters
-    public function setBase(float $base): void {
-        if ($base <= 0) throw new InvalidArgumentException('$base is less or equal to 0');
-        $this->base = $base;
-    }
-    public function setHeight(float $height): void {
-        if ($height <= 0) throw new InvalidArgumentException('$height is less or equal to 0');
-        $this->height = $height;
-    }
-    //Methods
-    public abstract function calculateArea(): float;
 }
-$reflection = new ReflectionClass('Shape');
-foreach ($reflection->getMethods() as $m) {
-	$plantUMLCode = '';
-	if ($m->getName() === '__construct') continue;
-	if ($m->isAbstract()) $isAbstract = true;
-	$plantUMLCode = match(true) {
-		$m->isPrivate() => '- ',
-		$m->isProtected() => '# ',
-		$m->isPublic() => '- ',
+$spaces = '  ';
+$reflection = new ReflectionClass('Rectangle');
+// class ReflectionClass implements Reflector
+// public getName(): string
+// public isAbstract(): bool
+// public getProperties(?int $filter = null): array of ReflectionProperty
+echo $reflection->isAbstract() ? 'abstract ' : '';
+echo 'class ' . $reflection->getName() . ' ';
+echo ($reflection->getParentClass() ? ('extends ' . $reflection->getParentClass()->getName() . ' ') : '');
+$interfaceNames = $reflection->getInterfaceNames();
+echo (count($interfaceNames) !== 0 ? 'implements ' . implode(', ', $interfaceNames) . ' ': '');
+echo '{' . PHP_EOL;
+foreach ($reflection->getProperties() as $p) {
+	$plantUMLCode = $spaces;
+    // class ReflectionProperty implements Reflector
+    // public isPrivate(): bool
+    // public getName(): string
+    // public getType(): ?ReflectionType
+	$plantUMLCode .= match(true) {
+		$p->isPrivate() => '- ',
+		$p->isProtected() => '# ',
+		$p->isPublic() => '+ ',
 		default => ''
 	};
-	$plantUMLCode .= $m->getName() . '(): ' . $m->getReturnType();
+	if ($p->isStatic()) $plantUMLCode .= '{static} ';
+    $plantUMLCode .= $p->getName() .
+    ($p->getType() !== null ? (': ' . $p->getType()) : '');
 	echo $plantUMLCode  . PHP_EOL;
 }
+// class ReflectionClass implements Reflector
+// public getMethods(?int $filter = null): array of ReflectionMethod
+foreach ($reflection->getMethods() as $m) {
+	$plantUMLCode = $spaces;
+    // class ReflectionMethod extends ReflectionFunctionAbstract
+    // public isPrivate(): bool
+    // public ReflectionFunctionAbstract::getName(): string
+    // public ReflectionFunctionAbstract::getParameters(): array of ReflectionParameter
+    // public ReflectionFunctionAbstract::getReturnType(): ?ReflectionType
+
+    // ---
+    // class ReflectionParameter implements Reflector
+    // public getName(): string
+    // public getType(): ?ReflectionType
+
+	if ($m->getName() === '__construct') continue;
+	$plantUMLCode .= match(true) {
+		$m->isPrivate() => '- ',
+		$m->isProtected() => '# ',
+		$m->isPublic() => '+ ',
+		default => ''
+	};
+	if ($m->isAbstract()) $plantUMLCode .= '{abstract} ';
+	if ($m->isStatic()) $plantUMLCode .= '{static} ';
+    $parameters = [];
+    foreach($m->getParameters() as $p) {
+        $parameters[] =
+            $p->getName() .
+            ($p->getType() !== null ? (': ' . $p->getType()) : '');
+    }
+    // implode(string $separator, array $prray): string
+    $plantUMLCode .=
+        $m->getName() . '(' . implode(', ', $parameters) . ')' .
+        ($m->getReturnType() !== null ? (': ' . $m->getReturnType()) : '');
+	echo $plantUMLCode  . PHP_EOL;
+}
+echo '}' . PHP_EOL;
