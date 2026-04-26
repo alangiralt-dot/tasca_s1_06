@@ -1,0 +1,102 @@
+body {
+  font: 1rem "Segoe UI", sans-serif;
+  color: black
+}
+.header1 {
+  cursor: context-menu;
+  display: block;
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+#login-container {
+  align-items: stretch;
+  /*border: 1px solid black;*/
+  background-color: white;
+  box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  justify-content: flex-start;
+  padding: 1.5rem;
+  width: 25rem;
+}
+#container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  gap: 1rem;
+}
+input, select, #submit-btn {
+  border: none;
+  border-bottom: 0.5px solid black;
+  font-size: 1rem;
+  height: 2.188rem;
+  outline: none;
+  padding: 0.313rem;
+}
+#submit-btn {
+  background-color: rgb(0, 103, 184);
+  border: none;
+  cursor: pointer;
+  color: rgb(255, 255, 255);
+  font-weight: 400;
+  transition: background-color 0.2s;
+  width: 6.75rem;
+}
+#submit-btn:hover {
+  background-color: rgb(0, 93, 160);
+}
+#div3 {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: stretch;
+}
+.ghost {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+@media (max-width: 25rem) {
+  #login-container {
+    width: 90%;
+  }
+}
+table {
+    border-collapse: collapse;
+}
+td, th {
+    border: 1px solid black;
+    padding: 10px;
+}
+td:first-child {
+    font-weight: 600;
+}
+th {
+    text-align: left;
+}
+#table-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 20px;
+}
+.error-wrapper, .link-container {
+  margin: 1rem 0;
+}
+.error-wrapper {
+  color: crimson;
+}
+.error-wrapper h3 {
+  display: block;
+  margin: 0;
+}
