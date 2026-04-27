@@ -2,7 +2,7 @@
 
 This repository contains the resolution of the exercises for the "Advanced PHP" module. The focus of these exercises is to practice superglobal variables, sessions, magic methods and Traits.
 
-## 🚀 Level 1: Basics of Advanced PHP
+## Level 1: Basics of Advanced PHP
 
 ### Exercise 1: Forms & Sessions
 - **Description**: Creation of an HTML form that sends data to a PHP script.
